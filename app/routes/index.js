@@ -9,4 +9,8 @@ module.exports = function(app, db) {
         .get(function(req, res) {
             res.sendFile(process.cwd() + "/public/index.html");
         });
+
+    // called when submitting a search query
+    app.route("/imgsearch/:searchQuery")
+        .get(imgHandler.getResults);
 };
