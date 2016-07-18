@@ -1,6 +1,6 @@
 "use strict";
 
-function linkHandler(db) {
+function imgHandler(db) {
     var images = db.collection("images");
 
     // called when user wants to shorten a link
