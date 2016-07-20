@@ -7,11 +7,6 @@ function imgHandler(db) {
 
     var images = db.collection("images");
 
-    // called when user wants to shorten a link
-    this.get = function(req, res) {
-        res.end("test");
-    };
-
     this.getResults = function(req, res) {
         var theUrl = "https://api.cognitive.microsoft.com/bing/v5.0/images/search?q=" + req.params.searchQuery;
         var options = { url: theUrl };
@@ -45,6 +40,7 @@ function imgHandler(db) {
                 if (!error && response.statusCode == 200) {
                     var results = JSON.parse(body);
                     var resSummary = [];
+
                     // building result sumamry for each result, and adding åit to array
                     for (var i = 0; i < results.value.length; i++) {
                         var resultSummary = {};
@@ -53,8 +49,14 @@ function imgHandler(db) {
                         resultSummary.thumbnail = results.value[i].thumbnailUrl;
                         resultSummary.context = results.value[i].hostPageUrl;
                         resSummary.push(resultSummary);
+
+                    // sets results offset
+                    var offset = 0;
+                    if (req.query.hasOwnProperty("offset")) {
+                        offset = req.query.offset;
                     }
-                    res.end(JSON.stringify(resSummary));
+
+                    res.end(JSON.stringify(resSummary.slice(offset, offset+10)));
                 } else {
                     console.log(JSON.stringify(response));
                     res.end("API call error.")
