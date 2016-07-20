@@ -49,7 +49,7 @@ function imgHandler(db) {
                         resultSummary.thumbnail = results.value[i].thumbnailUrl;
                         resultSummary.context = results.value[i].hostPageUrl;
                         resSummary.push(resultSummary);
-
+                    }
                     // sets results offset
                     var offset = 0;
                     if (req.query.hasOwnProperty("offset")) {
@@ -59,7 +59,7 @@ function imgHandler(db) {
                     res.end(JSON.stringify(resSummary.slice(offset, offset+10)));
                 } else {
                     console.log(JSON.stringify(response));
-                    res.end("API call error.")
+                    res.end("API call error.");
                 }
             });
         });
