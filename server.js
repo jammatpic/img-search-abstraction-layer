@@ -11,6 +11,8 @@ mongo.connect(process.env.Mongo_URI || "mongodb://localhost:27017/us-db", functi
         console.log("MongoDB successfully connected.")
     }
 
+    app.use('/public', express.static(process.cwd() + '/public'));
+
     // routes connections
     routes(app, db);
 
