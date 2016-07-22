@@ -2,22 +2,50 @@
     <title>Image Search Abstraction Layer</title>
     <meta name="viewport" content="initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href = "stylesheet.css">
 </head>
 
 <body>
-    <div class = "container lead">
-        <header class = "page-header">
+    <div class = "container">
+        <header class = "page-header lead">
             <h1>Image Search Abstraction Layer</h1>
         </header>
         <div class = "lead">
             <h3>Description:</h3>
-            <p>Pass a search query as a parameter, and this service will return search results.</p>
+            <p>Pass a search query as a parameter, and this service will return search results.
+                You can optionally specify an offset in order to paginate through the results.
+                The "JSONView" extention for Chrome/Firefox makes the results much more readable.
+                Visit <a href="https://img-search-abs-layer.herokuapp.com/latest">https://img-search-abs-layer.herokuapp.com/latest</a> to see the latest searches.
+            </p>
         </div>
         <div>
-            <h3>Example:</h3>
-            <p><code>https://img-search-abs-layer.herokuapp.com/imgsearch/lolcats%20funny</code></p>
-            <p>Will give an output of:</p>
-            <p><code>[{"url":"https://i.ytimg.com/vi/tRzXptpC3_U/hqdefault.jpg","snippet":"funny lolcats and loldogs","thumbnail":"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS_dKvb6pMA0bod00g0v1Bk3YakSY7H4HYwpu268AqUK8pPiSdlUh9pEnYh","context":"https://www.youtube.com/watch?v=tRzXptpC3_U"},<br>{"url":"http://data.whicdn.com/images/30855761/large.jpg","snippet":"cat and funny image","thumbnail":"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRcVvn_L7D1b54fIv-1UZH1V_k1SJPRtamtdlJSjldoolzYEYZYj_XKtjzD","context":"http://weheartit.com/entry/30855761"}, ...]</code></p>
+            <div class = "lead">
+                <h3>Example:</h3>
+                <p><code>https://img-search-abs-layer.herokuapp.com/imgsearch/cats?offset=0</code></p>
+                <p>Will give an output of:</p>
+            </div>
+            <div class = "example">
+                <p><code>[</code></p>
+                <p class = "ind1"><code>{</code></p>
+                <p class = "ind2"><code>
+                    url: "http://2.bp.blogspot.com/-WtdFq_e6eKo/TV5W5s-hS-I/AAAAAAAAAvM/gmCUYOx3bX8/s1600/Animals_Cats_Small_cat_005241_.jpg", <br>
+                    snippet: "True Wild Life",<br>
+                    thumbnail: "https://tse4.mm.bing.net/th?id=OIP.M2a50172cce1e37480b2df61561532aa4H0&pid=Api",<br>
+                    context: "http://www.bing.com/cr?IG=F8E69F1CF97946149A774E15134A4099&CID=29679515CA79669B0A649C4FCB4867A1&rd=1&h=0_q9dolAf9XX5UfgQwrnAh7W1aihqedkaTsOfJWPhiQ&v=1&r=http%3a%2f%2ftrue-wildlife.blogspot.com%2f2011%2f02%2fcat.html&p=DevEx,5007.1"<br>
+                </code></p>
+                <p class = "ind1"><code>
+                    },<br>
+                    {
+                </code></p>
+                <p class = "ind2"><code>
+                    url: "http://2.bp.blogspot.com/-8XltDQ2fDJA/T_fJjDFlsUI/AAAAAAAAEIs/gXKoI_SAVxQ/s1600/Beautiful+Cats+Hd+Wallpapers_7.jpg",<br>
+                    snippet: "All Wallpapers: Beautiful Cats Hd Wallpapers",<br>
+                    thumbnail: "https://tse2.mm.bing.net/th?id=OIP.M3e2bb0e5ca44f5c65c2432aae9d94ab1H0&pid=Api",<br>
+                    context: "http://www.bing.com/cr?IG=F8E69F1CF97946149A774E15134A4099&CID=29679515CA79669B0A649C4FCB4867A1&rd=1&h=wQfDs-zM69L7PDl9aBaYo3SwymLW0r-ifdPCwzSO6hc&v=1&r=http%3a%2f%2fnewallwallpaper.blogspot.com%2f2012%2f07%2fbeautiful-cats-hd-wallpapers.html&p=DevEx,5013.1"<br>
+                </code></p>
+                <p class = "ind1"><code>}, ... <br></code></p>
+                <p><code>]</code></p>
+            </div>
         </div>
     </div>
 </body>

@@ -2,15 +2,40 @@
 var request = require("request");
 var fs = require("fs");
 var async = require("async");
+var url = require("url");
+var querystring = require("querystring");
+var moment = require("moment");
 
 function imgHandler(db) {
+    var searches = db.collection("searches");
 
-    var images = db.collection("images");
+
+    this.getSearchHistory = function(req, res) {
+        // sending everything in collection to res
+        searches.find({}, {_id: 0}).toArray(function (err, docs) {
+            res.send(docs);
+        });
+    };
 
     this.getResults = function(req, res) {
-        var theUrl = "https://api.cognitive.microsoft.com/bing/v5.0/images/search?q=" + req.params.searchQuery;
-        var options = { url: theUrl };
+        // getting search query and offset value, and using them to form API call
+        var reqUrl = url.parse(req.protocol + "://" + req.get("host") + req.originalUrl);
+        var theSearch = url.parse(req.params.searchQuery).pathname;
+        var offset = querystring.parse(reqUrl.query).offset;
+        
+        if (offset === undefined) {
+            offset = 0;
+        }
+        var theUrl = "https://api.cognitive.microsoft.com/bing/v5.0/images/search?q=" + theSearch + "&offset=" + offset;
 
+
+        // adding search query to search history
+        searches.insert({ term: theSearch, when: moment().format()}, function(err, data) {
+            if (err) throw err;
+        });
+
+        // getting API key, searching for images, and summarising results
+        var options = { url: theUrl };
         async.series([
             // getting API key before request
             function(callback) {
